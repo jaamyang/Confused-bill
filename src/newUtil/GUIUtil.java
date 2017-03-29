@@ -48,7 +48,7 @@ public class GUIUtil {
 	}
 	
 	public static boolean checkNumber(JTextField tf,String input){
-		if(!checkNumber(tf,input))
+		if(!chaeckEmpty(tf,input))
 			return false;
 		String text = tf.getText().trim();
 		try{

@@ -13,11 +13,13 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
 
 import entity.Category;
+import gui.listener.RecordListener;
 import gui.model.CategoryComboBoxModel;
 import newUtil.ColorUtil;
 import newUtil.GUIUtil;
+import service.CategoryService;
 
-public class RecordPanel extends JPanel{
+public class RecordPanel extends WorkingPanel{
 	static{
 		GUIUtil.useLNF();
 	}
@@ -60,6 +62,40 @@ public class RecordPanel extends JPanel{
         this.add(pInput,BorderLayout.NORTH);
         this.add(pSubmit,BorderLayout.CENTER);
 		
+        addListener();
 	}
+
+	@Override
+	public void updateData() {
+		// TODO Auto-generated method stub
+		cbModel.cs = new CategoryService().list();
+		cbCategory.updateUI();
+		resetInput();
+		tfSpend.grabFocus();
+	}
+
+	@Override
+	public void addListener() {
+		// TODO Auto-generated method stub
+		RecordListener listener = new RecordListener();
+		buSubmit.addActionListener(listener);
+	}
+	
+	public void resetInput(){
+		tfSpend.setText("0");
+		tfComment.setText("");
+		if(0 != cbModel.cs.size())
+			cbCategory.setSelectedIndex(0);
+		datepick.setDate(new Date());
+	}
+	
+	public Category getSelectedCategory(){
+		return (Category) cbCategory.getSelectedItem();
+	}
+	
+	/*public static void main(String[]args){
+		GUIUtil.showPanel(RecordPanel.instance);
+	}
+	*/
 
 }

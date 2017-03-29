@@ -38,7 +38,7 @@ public class ConfigDAO {
 			
 			ps.setString(1, config.key);
 			ps.setString(2, config.value);
-			ps.execute();
+			ps.executeUpdate();
 			ResultSet st = ps.getGeneratedKeys();
 			if(st.next()){
 				int id = st.getInt(1);
@@ -51,14 +51,14 @@ public class ConfigDAO {
 	
 	public void update(Config config){
 		
-		String sql = "update config set key_ = ?, value_ = ?, where id = ?";
+		String sql = "update config set key_ = ?, value_ = ?, where id=?";
 		try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			
 			ps.setString(1, config.key);
 			ps.setString(2, config.value);
 			ps.setInt(3, config.id);
 			
-			ps.execute();
+			ps.executeUpdate();
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

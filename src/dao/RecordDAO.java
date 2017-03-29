@@ -130,7 +130,7 @@ public class RecordDAO {
 	 public List<Record> list(int cid) {
 	        List<Record> records = new ArrayList<Record>();
 	  
-	        String sql = "select * from record where cid = ?";
+	        String sql = "select * from record where catid = ?";
 	  
 	        try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 	  

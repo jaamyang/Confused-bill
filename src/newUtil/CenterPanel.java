@@ -3,14 +3,14 @@ package newUtil;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import gui.panel.WorkingPanel;
 
 public class CenterPanel extends JPanel{
 	
-	private double rate;   //拉伸比例，1位占满
+	private double rate;   //拉伸比例，1为占满
 	private JComponent c;  //其中的组件
 	private boolean isstrech;  //是否拉伸
 	
@@ -26,7 +26,7 @@ public class CenterPanel extends JPanel{
 	}
 	
 	public void repaint(){
-		if(c!=null){
+		if(c != null){
 			Dimension containerSize = this.getSize();
 			Dimension componentSize = c.getPreferredSize();
 			if(isstrech)
@@ -44,6 +44,9 @@ public class CenterPanel extends JPanel{
 			remove(c);
 		}
 		add(p);
+		
+		if(p instanceof WorkingPanel)
+			((WorkingPanel)p).updateData();
 		this.updateUI();
 	}
 	/*public static void main(String []artgs){

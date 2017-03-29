@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import gui.listener.ToolBarListener;
 import newUtil.CenterPanel;
 import newUtil.GUIUtil;
 
@@ -51,7 +52,24 @@ public class MainPanel extends JPanel {
 		add(tb,BorderLayout.NORTH);
 		add(workingPanel, BorderLayout.CENTER);
 		
+		addListener();
 	}
 	
+	public void addListener(){
+		ToolBarListener listener = new ToolBarListener();
+		
+		buSpend.addActionListener(listener);
+		buRecord.addActionListener(listener);
+		buConfig.addActionListener(listener);
+		buCategory.addActionListener(listener);
+		buBackup.addActionListener(listener);
+		buRecover.addActionListener(listener);
+		buReport.addActionListener(listener);
+		
+	}
+	
+	public static void main(String[] args){
+		GUIUtil.showPanel(MainPanel.instance,1);
+	}
 	
 }

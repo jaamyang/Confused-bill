@@ -17,7 +17,7 @@ public class CategoryDAO {
 		int total = 0;
 		try(Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
 			
-			String sql = "select count(*) from category";
+			String sql = "select count(*) from cateory";
 			
 			ResultSet rs = s.executeQuery(sql);
 			while(rs.next()){
@@ -31,11 +31,11 @@ public class CategoryDAO {
 	
 	public void add(Category category){
 		
-		String sql = "insert into category values(null,?,?)";
+		String sql = "insert into cateory values(null,?)";
 		try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			
 			ps.setString(1, category.name);
-			ps.execute();
+			ps.executeUpdate();
 			
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()){
@@ -50,7 +50,7 @@ public class CategoryDAO {
 	
 	public void update(Category category){
 		
-		String sql = "update category set name= ? where id = ?";
+		String sql = "update cateory set name= ? where id = ?";
 		try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			
 			ps.setString(1, category.name);
@@ -65,7 +65,7 @@ public class CategoryDAO {
 	public void delete(int id){
 		try(Connection c= DBUtil.getConnection(); Statement s = c.createStatement() ;){
 			
-			String sql = "delete from category where id = "+id;
+			String sql = "delete from cateory where id = "+id;
 			
 			s.execute(sql);
 		} catch (SQLException e){
@@ -79,7 +79,7 @@ public class CategoryDAO {
 		
 		try(Connection c = DBUtil.getConnection(); Statement s = c.createStatement();){
 			
-			String sql = "sekect * from category where id = "+id;
+			String sql = "sekect * from cateory where id = "+id;
 			
 			ResultSet rs = s.executeQuery(sql);
 			
@@ -103,7 +103,7 @@ public class CategoryDAO {
 	public List<Category> list(int start, int count){
 		List<Category> categorys = new ArrayList<Category>();
 		
-		String sql = "select * from category order by id desc limit ?,?";
+		String sql = "select * from cateory order by id desc limit ?,?";
 		
 		try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 			

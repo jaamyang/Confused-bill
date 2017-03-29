@@ -2,16 +2,18 @@ package gui.panel;
  
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
- 
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
- 
+
+import gui.listener.ConfigListener;
 import newUtil.ColorUtil;
 import newUtil.GUIUtil;
+import service.ConfigService;
  
-public class ConfigPanel extends JPanel {
+public class ConfigPanel extends WorkingPanel{
     static{
         GUIUtil.useLNF();
     }
@@ -23,11 +25,11 @@ public class ConfigPanel extends JPanel {
     JLabel lMysql = new JLabel("Mysql安装目录");
     public JTextField tfMysqlPath = new JTextField("");
  
-    JButton bSubmit = new JButton("更新");
+    JButton buSubmit = new JButton("更新");
  
     public ConfigPanel() {
         GUIUtil.setColor(ColorUtil.grayColor, lBudget,lMysql);
-        GUIUtil.setColor(ColorUtil.blueColor, bSubmit);
+        GUIUtil.setColor(ColorUtil.blueColor, buSubmit);
          
         JPanel pInput =new JPanel();
         JPanel pSubmit = new JPanel();
@@ -41,13 +43,27 @@ public class ConfigPanel extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(pInput,BorderLayout.NORTH);
          
-        pSubmit.add(bSubmit);
+        pSubmit.add(buSubmit);
         this.add(pSubmit,BorderLayout.CENTER);
          
+        addListener();
     }
  
     public static void main(String[] args) {
         GUIUtil.showPanel(ConfigPanel.instance);
     }
      
+    public void addListener(){
+    	ConfigListener l = new ConfigListener();
+    	buSubmit.addActionListener(l);
+    	
+    }
+    
+    public void updateData(){
+    	String budget = new ConfigService().get(ConfigService.budget);
+    	String mysqlPath = new ConfigService().get(ConfigService.mysqlPath);
+    	tfBudget.setText(budget);
+    	tfMysqlPath.setText(mysqlPath);
+    	tfBudget.grabFocus();
+    }
 }

@@ -2,15 +2,16 @@ package gui.panel;
  
 import java.awt.BorderLayout;
 import java.awt.Image;
- 
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
- 
+import entity.Record;
 import newUtil.ChartUtil;
 import newUtil.GUIUtil;
+import service.ReportService;
  
-public class ReportPanel extends JPanel {
+public class ReportPanel extends WorkingPanel {
     static {
         GUIUtil.useLNF();
     }
@@ -27,8 +28,23 @@ public class ReportPanel extends JPanel {
         this.add(l);
     }
  
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         GUIUtil.showPanel(ReportPanel.instance);
-    }
+    }*/
+
+	@Override
+	public void updateData() {
+		// TODO Auto-generated method stub
+		List<Record> rs = new ReportService().listThisMonthRecords();
+		Image i = ChartUtil.getImage(rs, 350, 350);
+		ImageIcon icon = new ImageIcon(i);
+		l.setIcon(icon);
+	}
+
+	@Override
+	public void addListener() {
+		// TODO Auto-generated method stub
+		
+	}
  
 }
